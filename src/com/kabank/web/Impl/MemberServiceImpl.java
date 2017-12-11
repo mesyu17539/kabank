@@ -3,44 +3,36 @@ package com.kabank.web.Impl;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Vector;
 
 import com.kabank.web.bean.MemberBean;
 import com.kabank.web.service.MemberService;
 
 public class MemberServiceImpl implements MemberService {
-	private MemberBean[] memberBeans;
-	private int count;
-	
+	private Vector<MemberBean> memberBeans;
+	int number;
 	public MemberServiceImpl() {
-		this.count = 0;
-		memberBeans = null;
+		memberBeans= new Vector<MemberBean>(10,10);
 	}
-
+	
+	@Override
 	public int getCount() {
-		return this.count;
+		// TODO Auto-generated method stub
+		return memberBeans.size();
 	}
 
 	@Override
-	public MemberBean[] list() {
+	public Vector<MemberBean> list() {
 		return memberBeans;
 	}
 
 	public int createCustomNum() {
-		int foo = 0;
-		// algorithm
-		return foo;
+		return number++;
 	}
 
 	@Override
 	public void addMem(MemberBean memberBean) {
-		MemberBean[] newMB = new MemberBean[count];
-		if (memberBeans != null) {
-			newMB=memberBeans;
-		}
-		this.memberBeans = new MemberBean[count + 1];
-		this.memberBeans[count] = memberBean;
-		System.arraycopy(newMB, 0, memberBeans, 0, count);
-		count++;
+		this.memberBeans.add(memberBean);
 	}
 
 	@Override
@@ -88,10 +80,8 @@ public class MemberServiceImpl implements MemberService {
 		case '8':
 			if (nowmonth >= snmonth && nowday >= snday) {
 				foo = snyear + 1;
-				System.out.println(" 1다음 " + foo);
 			} else {
 				foo = snyear;
-				System.out.println(" 2다음 " + foo);
 			}
 			break;
 		case '1':
@@ -100,7 +90,6 @@ public class MemberServiceImpl implements MemberService {
 		case '6':
 			if (nowmonth >= snmonth && nowday >= snday) {
 				foo = (100 - snyear) + (nowyear % 100);
-				System.out.println(" 3다음 " + foo);
 			} else {
 				foo = (100 - snyear) + (nowyear % 100);
 			}
@@ -109,4 +98,28 @@ public class MemberServiceImpl implements MemberService {
 		return foo;
 	}
 
+	@Override
+	public void reSetMember() {
+		// TODO Auto-generated method stub
+		memberBeans.clear();
+	}
+
+	@Override
+	public void delete(MemberBean bean) {
+		for(int i=0;i<memberBeans.size();i++) {
+			if(bean.getId().equals(memberBeans.get(i).getId())&&bean.getPass().equals(memberBeans.get(i).getPass())){
+				memberBeans.remove(i);
+			}
+		}
+	}
+
+	@Override
+	public MemberBean login(MemberBean bean) {
+		for(int i=0;i<memberBeans.size();i++) {
+			if(bean.getId().equals(memberBeans.get(i).getId())&&bean.getPass().equals(memberBeans.get(i).getPass())){
+				return memberBeans.get(i);
+			}
+		}
+		return null;
+	}
 }

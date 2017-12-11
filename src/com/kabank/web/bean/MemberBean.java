@@ -1,54 +1,54 @@
 package com.kabank.web.bean;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-
 public class MemberBean {
-	private int customNum;
-	private String name;
-	private int age;
-	private String gender;
-	private String ssn;
-	
-	public void setCustomNum(int customNum) {// setter 저장하기
+	private int customNum, age;
+	private String name, id, gender, pass, ssn;
+	public int getCustomNum() {
+		return customNum;
+	}
+	public void setCustomNum(int customNum) {
 		this.customNum = customNum;
-		// 맴버변수 전역변수
 	}
-
-	public int getCustomNum() {// getter 부르기
-		return this.customNum;
+	public int getAge() {
+		return age;
 	}
-
-	public String getGender() {
-		return this.gender;
+	public void setAge(int age) {
+		this.age = age;
 	}
-	
-	public void setGender(String gender) {
-		this.gender=gender;
-	}
-	
 	public String getName() {
-		return this.name;
+		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public int getAge() {
-		return this.age;
+	public String getId() {
+		return id;
 	}
-
-	public void setAge(int age) {
-		this.age=age;
+	public void setId(String id) {
+		this.id = id;
 	}
-
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	public String getSsn() {
+		return ssn;
+	}
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
-
-	public String getSsn() {
-		return this.ssn;
+	@Override
+	public String toString() {
+		return "회원정보 [고객번호=" + customNum + ", 나이=" + age + ", 이름=" + name + ", id=" + id + ", 성별="
+				+ gender + ", pass=" + pass + ", 주민번호=" + ssn + "]";
 	}
+
 }
