@@ -12,6 +12,9 @@ public interface MemberService {
 	public Vector<MemberBean> list();
 	public int getCount();
 	public void reSetMember();
-	public void delete(MemberBean memberBean);
-	public MemberBean login(MemberBean memberBean);
+	public String login(MemberBean memberBean);
+	public void delete(boolean bool);
+	public MemberBean findById(String showInputDialog);
+	public Vector<MemberBean> findByName(String showInputDialog);
+	public String upDatePass(String showInputDialog);
 }

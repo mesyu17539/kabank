@@ -48,7 +48,7 @@ public class MemberBean {
 	@Override
 	public String toString() {
 		return "회원정보 [고객번호=" + customNum + ", 나이=" + age + ", 이름=" + name + ", id=" + id + ", 성별="
-				+ gender + ", pass=" + pass + ", 주민번호=" + ssn + "]";
+				+ gender + ", pass=" + pass + ", 주민번호=" + ssn + "]\n";
 	}
 
 }

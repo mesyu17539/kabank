@@ -10,14 +10,17 @@ import com.kabank.web.service.MemberService;
 
 public class MemberServiceImpl implements MemberService {
 	private Vector<MemberBean> memberBeans;
+	private MemberBean mybean;
 	int number;
+
 	public MemberServiceImpl() {
-		memberBeans= new Vector<MemberBean>(10,10);
+		memberBeans = new Vector<MemberBean>(10, 10);
+		mybean = new MemberBean();
+		number=1000;
 	}
-	
+
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return memberBeans.size();
 	}
 
@@ -26,6 +29,7 @@ public class MemberServiceImpl implements MemberService {
 		return memberBeans;
 	}
 
+	@Override
 	public int createCustomNum() {
 		return number++;
 	}
@@ -100,26 +104,76 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void reSetMember() {
-		// TODO Auto-generated method stub
 		memberBeans.clear();
 	}
 
 	@Override
-	public void delete(MemberBean bean) {
-		for(int i=0;i<memberBeans.size();i++) {
-			if(bean.getId().equals(memberBeans.get(i).getId())&&bean.getPass().equals(memberBeans.get(i).getPass())){
-				memberBeans.remove(i);
+	public void delete(boolean bool) {
+		if (bool) {
+			mybean=null;
+			for (int i = 0; i < memberBeans.size(); i++) {
+				if (mybean.getId().equals(memberBeans.get(i).getId())
+						&& mybean.getPass().equals(memberBeans.get(i).getPass())) {
+					memberBeans.remove(i);
+				}
 			}
 		}
 	}
 
 	@Override
-	public MemberBean login(MemberBean bean) {
-		for(int i=0;i<memberBeans.size();i++) {
-			if(bean.getId().equals(memberBeans.get(i).getId())&&bean.getPass().equals(memberBeans.get(i).getPass())){
-				return memberBeans.get(i);
+	public String login(MemberBean bean) {
+		String foo="아이디 없음";
+		for (int i = 0; i < memberBeans.size(); i++) {
+//			if(bean.getId().equals(memberBeans.get(i).getId())) {
+//				foo=bean.getPass().equals(memberBeans.get(i).getPass())?memberBeans.get(i).getId() + " 님 환영합니다":"비밀번호 틀림";
+//				return foo;
+//			}
+			if(bean.getId().equals(memberBeans.get(i).getId())) {
+				if (bean.getPass().equals(memberBeans.get(i).getPass())) {
+					mybean=memberBeans.get(i);
+					return mybean.getId() + " 님 환영합니다";
+				}else {
+					return foo= "비밀번호 틀림";
+				}
 			}
 		}
-		return null;
+		return foo;
+		
+	}
+
+	@Override
+	public MemberBean findById(String sID) {
+		MemberBean bean=new MemberBean();
+		for(int i=0;i<memberBeans.size();i++) {
+			if(sID.equals(memberBeans.get(i).getId())) {
+				bean=memberBeans.get(i);
+				break;
+			}
+		}
+		return bean;
+	}
+
+	@Override
+	public Vector<MemberBean> findByName(String sID) {
+		int count=0;
+		for(int i=0;i<memberBeans.size();i++) {
+			if(sID.equals(memberBeans.get(i).getName())) {
+				count++;
+			}
+		}
+		Vector<MemberBean> meBeans=new Vector<MemberBean>(count);
+		for(int i=0;i<memberBeans.size();i++) {
+			if(sID.equals(memberBeans.get(i).getName())) {
+				meBeans.add(memberBeans.get(i));
+			}
+		}
+		
+		return meBeans;
+	}
+
+	@Override
+	public String upDatePass(String pass) {
+		mybean.setPass(pass);;
+		return "비밀번호확인 : "+mybean.getPass();
 	}
 }
