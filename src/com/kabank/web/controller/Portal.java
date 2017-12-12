@@ -77,7 +77,7 @@ public class Portal {
 			case "8":
 				JOptionPane.showMessageDialog(null, memberService.upDatePass(
 						JOptionPane.showInputDialog("Enter SEARCH 수정할 비밀번호")));
-				break;
+				break; //aasjdkfjlaksdjf
 			case "9":
 				memberService.delete(JOptionPane.showInputDialog("탈퇴? y or n").equalsIgnoreCase("y"));
 				break;
